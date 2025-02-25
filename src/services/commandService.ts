@@ -1,25 +1,19 @@
 import { api } from './api.config';
 import { Command } from '../types/Command';
+import { handleApiRequest } from './apiWrapper';
 
 const commandService = {
-    getAll: async (platformId: string) => {
-        const response = await api.get<Command[]>(`/c/Command/${platformId}`);
-        return response.data;
-    },
+    getAll: (platformId: string): Promise<Command[]> => 
+        handleApiRequest(() => api.get<Command[]>(`/c/Command/${platformId}`)),
 
-    getById: async (platformId: string, commandId: string) => {
-        const response = await api.get<Command>(`/c/Command/${platformId}/${commandId}`);
-        return response.data;
-    },
+    getById: (platformId: string, commandId: string): Promise<Command> => 
+        handleApiRequest(() => api.get<Command>(`/c/Command/${platformId}/${commandId}`)),
 
-    create: async (platformId: string, command: Omit<Command, 'id'>) => {
-        const response = await api.post<Command>(`/c/Command/${platformId}`, command);
-        return response.data;
-    },
+    create: (platformId: string, command: Omit<Command, 'id'>): Promise<Command> => 
+        handleApiRequest(() => api.post<Command>(`/c/Command/${platformId}`, command)),
 
-    delete: async (platformId: string, commandId: string) => {
-        await api.delete(`/c/Command/${platformId}/${commandId}`);
-    }
+    delete: (platformId: string, commandId: string): Promise<void> => 
+        handleApiRequest(() => api.delete(`/c/Command/${platformId}/${commandId}`))
 };
 
 export default commandService;

@@ -1,7 +1,9 @@
+import PlatformList from "../components/platform/PlatformList";
+
 export default function Platforms() {
     return (
         <div>
-            <h2>Platforms</h2>
+            <PlatformList></PlatformList>
         </div>
     );
 }
