@@ -41,16 +41,6 @@ export default function PlatformCard({
     return platform.name.charAt(0).toUpperCase();
   };
 
-  if (!platform) {
-    return (
-      <Card elevation={2} sx={{ height: "100%" }}>
-        <CardContent>
-          <Typography>Invalid platform data</Typography>
-        </CardContent>
-      </Card>
-    );
-  }
-
   return (
     <Card
       elevation={2}
