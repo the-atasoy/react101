@@ -12,14 +12,48 @@ export default function PlatformList() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<ApiError | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalMode, setModalMode] = useState<'create' | 'update'>('create');
+    const [selectedPlatform, setSelectedPlatform] = useState<Platform | undefined>(undefined);
 
-    const handleSubmit = async (platform: Omit<Platform, 'id'>) => {
+    const handleCreate = async (platform: Omit<Platform, 'id'>) => {
         try {
             await platformService.create(platform);
             fetchPlatforms();
             setIsModalOpen(false);
         } catch (err) {
             setError(err as ApiError);
+        }
+    };
+
+    const handleUpdate = async (platform: Omit<Platform, 'id'>) => {
+        if (!selectedPlatform?.id) return;
+        
+        try {
+            await platformService.update(selectedPlatform.id, platform);
+            fetchPlatforms();
+            setIsModalOpen(false);
+        } catch (err) {
+            setError(err as ApiError);
+        }
+    };
+
+    const handleEdit = (platform: Platform) => {
+        setSelectedPlatform(platform);
+        setModalMode('update');
+        setIsModalOpen(true);
+    };
+
+    const handleAddNew = () => {
+        setSelectedPlatform(undefined);
+        setModalMode('create');
+        setIsModalOpen(true);
+    };
+
+    const handleModalSubmit = async (platform: Omit<Platform, 'id'>) => {
+        if (modalMode === 'create') {
+            await handleCreate(platform);
+        } else {
+            await handleUpdate(platform);
         }
     };
 
@@ -76,7 +110,7 @@ export default function PlatformList() {
                     variant="contained" 
                     color="primary" 
                     startIcon={<AddIcon />}
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={handleAddNew}
                     size="large"
                 >
                     Add Platform
@@ -104,7 +138,10 @@ export default function PlatformList() {
                 <Grid container spacing={3}>
                     {platforms.map(platform => (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={platform.id}>
-                            <PlatformCard platform={platform} />
+                            <PlatformCard 
+                                platform={platform} 
+                                onUpdate={handleEdit} 
+                            />
                         </Grid>
                     ))}
                 </Grid>
@@ -113,7 +150,9 @@ export default function PlatformList() {
             <PlatformModal 
                 isOpen={isModalOpen} 
                 onClose={() => setIsModalOpen(false)}
-                onSubmit={handleSubmit}
+                onSubmit={handleModalSubmit}
+                platform={selectedPlatform}
+                mode={modalMode}
             />
         </Container>
     );

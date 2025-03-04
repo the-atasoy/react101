@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { 
     Dialog, 
     DialogTitle, 
@@ -13,14 +13,34 @@ interface PlatformModalProps {
     isOpen: boolean;
     onClose: () => void;
     onSubmit: (platform: Omit<Platform, 'id'>) => Promise<void>;
+    platform?: Platform;
+    mode: 'create' | 'update';
 }
 
-export default function PlatformModal({ isOpen, onClose, onSubmit }: PlatformModalProps) {
+export default function PlatformModal({ isOpen, onClose, onSubmit, platform, mode }: PlatformModalProps) {
+
     const [formData, setFormData] = useState({
         name: '',
         publisher: '',
         cost: ''
     });
+
+    useEffect(() => {
+        if (platform && mode === 'update') {
+            setFormData({
+                name: platform.name,
+                publisher: platform.publisher,
+                cost: platform.cost
+            });
+        }
+        else {
+            setFormData({
+                name: '',
+                publisher: '',
+                cost: ''
+            })
+        }
+    }, [platform, isOpen, mode]);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -31,7 +51,7 @@ export default function PlatformModal({ isOpen, onClose, onSubmit }: PlatformMod
     return (
         <Dialog open={isOpen} onClose={onClose}>
             <form onSubmit={handleSubmit}>
-                <DialogTitle>Add New Platform</DialogTitle>
+                <DialogTitle>{mode === 'create' ? 'Add New Platform' : 'Update Platform'}</DialogTitle>
                 <DialogContent>
                     <TextField
                         name="name"
@@ -61,7 +81,7 @@ export default function PlatformModal({ isOpen, onClose, onSubmit }: PlatformMod
                 <DialogActions>
                     <Button onClick={onClose}>Cancel</Button>
                     <Button type="submit" variant="contained" color="primary">
-                        Create
+                        {mode === 'create' ? 'Add' : 'Edit'}
                     </Button>
                 </DialogActions>
             </form>
