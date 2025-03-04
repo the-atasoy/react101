@@ -5,19 +5,24 @@ import About from './pages/About';
 import Platforms from './pages/Platforms';
 import Commands from './pages/Commands';
 import './App.css';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { darkTheme } from './theme';
 
 export default function App() {
   return (
-    <Router>
-      <div className="App">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/platforms" element={<Platforms />} />
-          <Route path="/platforms/:platformId/commands" element={<Commands />} />
-        </Routes>
-      </div>
-    </Router>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <Router>
+        <div className="App">
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/platforms" element={<Platforms />} />
+            <Route path="/platforms/:platformId/commands" element={<Commands />} />
+          </Routes>
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 };
