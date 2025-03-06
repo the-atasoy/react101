@@ -14,15 +14,18 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Platform } from "../../types/Platform";
+import React from "react";
 
 interface PlatformCardProps {
   platform: Platform;
   onUpdate: (platform: Platform) => void;
+  onDelete: (platformId: string) => void;
 }
 
 export default function PlatformCard({
   platform,
   onUpdate,
+  onDelete,
 }: PlatformCardProps) {
   const navigate = useNavigate();
 
@@ -39,6 +42,16 @@ export default function PlatformCard({
   const getInitial = () => {
     if (!platform || !platform.name) return "?";
     return platform.name.charAt(0).toUpperCase();
+  };
+
+  const handleUpdateClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onUpdate(platform);
+  };
+
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete(platform.id!);
   };
 
   return (
@@ -123,12 +136,11 @@ export default function PlatformCard({
               <IconButton
                 aria-label="edit"
                 sx={{
-                    color: "#D5780D"
-                  }}
+                  color: "#D5780D",
+                }}
                 onMouseDown={(event) => event.stopPropagation()}
                 onClick={(event) => {
-                  event.stopPropagation();
-                  onUpdate(platform);
+                  handleUpdateClick(event);
                 }}
               >
                 <EditIcon />
@@ -136,12 +148,11 @@ export default function PlatformCard({
               <IconButton
                 aria-label="delete"
                 sx={{
-                    color: "#AE0611"
-                  }}
+                  color: "#AE0611",
+                }}
                 onMouseDown={(event) => event.stopPropagation()}
                 onClick={(event) => {
-                  event.stopPropagation();
-                  //onDelete(platform);
+                  handleDeleteClick(event);
                 }}
               >
                 <DeleteIcon />
