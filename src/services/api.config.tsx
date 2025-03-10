@@ -9,10 +9,8 @@ export const api = axios.create({
     }
 });
 
-// Optional: Add request/response interceptors
 api.interceptors.request.use(
     (config) => {
-        // You can add auth headers or other configurations here
         return config;
     },
     (error) => {

@@ -15,6 +15,7 @@ import PlatformCard from "./PlatformCard";
 import platformService from "../../services/platformService";
 import PlatformModal from "./PlatformModal";
 import DeleteConfirmationDialog from "../common/DeleteConfirmationDialog";
+import { AlertManager } from "../../contexts/AlertContext";
 
 export default function PlatformList() {
   const [platforms, setPlatforms] = useState<Platform[]>([]);
@@ -33,8 +34,9 @@ export default function PlatformList() {
       await platformService.create(platform);
       fetchPlatforms();
       setIsModalOpen(false);
+      AlertManager.success("Platform created successfully");
     } catch (err) {
-      setError(err as ApiError);
+      AlertManager.error((err as ApiError).message);
     }
   };
 
@@ -45,17 +47,10 @@ export default function PlatformList() {
       await platformService.update(selectedPlatform.id, platform);
       fetchPlatforms();
       setIsModalOpen(false);
+      AlertManager.success("Platform updated successfully");
     } catch (err) {
-      setError(err as ApiError);
-    }
-  };
-
-  const handleDelete = async (platformId: string) => {
-    try {
-      await platformService.delete(platformId);
-      fetchPlatforms();
-    } catch (err) {
-      setError(err as ApiError);
+      console.log(err);
+      AlertManager.error((err as ApiError).message);
     }
   };
 
@@ -103,8 +98,9 @@ export default function PlatformList() {
         fetchPlatforms();
         setDeleteConfirmOpen(false);
         setPlatformToDelete(null);
+        AlertManager.success("Platform deleted successfully");
       } catch (err) {
-        setError(err as ApiError);
+        AlertManager.error((err as ApiError).message);
       }
     }
   };
