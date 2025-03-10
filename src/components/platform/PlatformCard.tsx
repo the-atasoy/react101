@@ -67,7 +67,7 @@ export default function PlatformCard({
       }}
     >
       <CardActionArea
-        onClick={() => navigate(`/platforms/${platform.id}/commands`)}
+        onClick={() => navigate(`/commands/${platform.id}`)}
         sx={{
           flexGrow: 1,
           display: "flex",
@@ -132,9 +132,11 @@ export default function PlatformCard({
 
             <Box display="flex" gap={1}>
               <IconButton
+                component="span"
                 aria-label="edit"
                 sx={{
                   color: "#D5780D",
+                  cursor: "pointer",
                 }}
                 onMouseDown={(event) => event.stopPropagation()}
                 onClick={(event) => {
@@ -144,9 +146,11 @@ export default function PlatformCard({
                 <EditIcon />
               </IconButton>
               <IconButton
+                component="span"
                 aria-label="delete"
                 sx={{
                   color: "#AE0611",
+                  cursor: "pointer",
                 }}
                 onMouseDown={(event) => event.stopPropagation()}
                 onClick={(event) => {

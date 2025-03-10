@@ -98,7 +98,18 @@ export default function PlatformList() {
       const data = await platformService.getAll();
       setPlatforms(data);
     } catch (err) {
-      setError(err as ApiError);
+      if (typeof err === "object" && err !== null && "statusCode" in err) {
+        if (err.statusCode === 404)
+          setPlatforms([]);
+        else
+          setError(err as ApiError);
+      } else {
+        setError({
+          statusCode: 500,
+          message: "An unexpected error occurred",
+          error: String(err),
+        } as ApiError);
+      }
     } finally {
       setLoading(false);
     }

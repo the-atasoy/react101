@@ -6,9 +6,6 @@ const platformService = {
     getAll: (): Promise<Platform[]> => 
         handleApiRequest(() => api.get<Platform[]>('Platform')),
 
-    getById: (id: string): Promise<Platform> => 
-        handleApiRequest(() => api.get<Platform>(`Platform/${id}`)),
-
     create: (platform: Omit<Platform, 'id'>): Promise<Platform> => 
         handleApiRequest(() => api.post<Platform>('Platform', platform)),
 
