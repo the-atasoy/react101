@@ -7,13 +7,14 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import { Platform } from "../../types/Platform";
+import { Command } from "../../types/Command";
 
-interface PlatformModalProps {
+interface CommandModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (platform: Omit<Platform, "id">) => Promise<void>;
-  platform?: Platform;
+  onSubmit: (command: Omit<Command, "id">) => Promise<void>;
+  command?: Command;
+  platformId: string;
   mode: "create" | "update";
 }
 
@@ -21,35 +22,36 @@ export default function PlatformModal({
   isOpen,
   onClose,
   onSubmit,
-  platform,
+  command,
+  platformId,
   mode,
-}: PlatformModalProps) {
+}: CommandModalProps) {
   const [formData, setFormData] = useState({
-    name: "",
-    publisher: "",
-    cost: "",
+    platformId: platformId,
+    howTo: "",
+    commandLine: "",
   });
 
   useEffect(() => {
-    if (platform && mode === "update") {
+    if (command && mode === "update") {
       setFormData({
-        name: platform.name,
-        publisher: platform.publisher,
-        cost: platform.cost,
+        platformId: command.platformId,
+        howTo: command.howTo,
+        commandLine: command.commandLine,
       });
     } else {
       setFormData({
-        name: "",
-        publisher: "",
-        cost: "",
+        platformId: platformId,
+        howTo: "",
+        commandLine: "",
       });
     }
-  }, [platform, isOpen, mode]);
+  }, [command, isOpen, mode]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await onSubmit(formData);
-    setFormData({ name: "", publisher: "", cost: "" });
+    setFormData({ platformId: "", howTo: "", commandLine: "" });
   };
 
   return (
@@ -60,30 +62,22 @@ export default function PlatformModal({
         </DialogTitle>
         <DialogContent>
           <TextField
-            name="name"
-            label="Name"
+            name="howTo"
+            label="How To"
             fullWidth
             margin="normal"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          />
-          <TextField
-            name="publisher"
-            label="Publisher"
-            fullWidth
-            margin="normal"
-            value={formData.publisher}
+            value={formData.howTo}
             onChange={(e) =>
-              setFormData({ ...formData, publisher: e.target.value })
+              setFormData({ ...formData, howTo: e.target.value })
             }
           />
           <TextField
-            name="cost"
-            label="Cost"
+            name="commandLine"
+            label="Command Line"
             fullWidth
             margin="normal"
-            value={formData.cost}
-            onChange={(e) => setFormData({ ...formData, cost: e.target.value })}
+            value={formData.commandLine}
+            onChange={(e) => setFormData({ ...formData, commandLine: e.target.value })}
           />
         </DialogContent>
         <DialogActions>
