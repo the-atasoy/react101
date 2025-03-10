@@ -14,19 +14,19 @@ function AppContent() {
   const alert = useAlert();
 
   useEffect(() => {
-    window.alertDispatch = (severity, message, options) => {
+    window.alertDispatch = (severity, message, title?) => {
       switch (severity) {
         case "success":
-          alert.success(message, options);
+          alert.success(message, title);
           break;
         case "info":
-          alert.info(message, options);
+          alert.info(message, title);
           break;
         case "warning":
-          alert.warning(message, options);
+          alert.warning(message, title);
           break;
         case "error":
-          alert.error(message, options);
+          alert.error(message, title);
           break;
       }
     };
