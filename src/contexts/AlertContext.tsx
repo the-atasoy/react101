@@ -35,10 +35,6 @@ export function AlertProvider({ children }: { children: ReactNode }) {
     }, 100);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const contextValue: AlertContextType = {
     success: (message, title?) => showAlert("success", message, title),
     info: (message, title?) => showAlert("info", message, title),
@@ -52,11 +48,11 @@ export function AlertProvider({ children }: { children: ReactNode }) {
       <Snackbar
         open={open}
         autoHideDuration={duration}
-        onClose={handleClose}
+        onClose={() => setOpen(false)}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <MuiAlert
-          onClose={handleClose}
+          onClose={() => setOpen(false)}
           severity={severity}
           sx={{ width: "100%" }}
           variant="filled"

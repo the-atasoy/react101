@@ -29,7 +29,7 @@ export default function PlatformList() {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [platformToDelete, setPlatformToDelete] = useState<string | null>(null);
 
-  const handleCreate = async (platform: Omit<Platform, "id">) => {
+  const createPlatform = async (platform: Omit<Platform, "id">) => {
     try {
       await platformService.create(platform);
       fetchPlatforms();
@@ -40,7 +40,7 @@ export default function PlatformList() {
     }
   };
 
-  const handleUpdate = async (platform: Omit<Platform, "id">) => {
+  const updatePlatform = async (platform: Omit<Platform, "id">) => {
     if (!selectedPlatform?.id) return;
 
     try {
@@ -49,28 +49,46 @@ export default function PlatformList() {
       setIsModalOpen(false);
       AlertManager.success("Platform updated successfully");
     } catch (err) {
-      console.log(err);
       AlertManager.error((err as ApiError).message);
     }
   };
 
-  const handleEdit = (platform: Platform) => {
-    setSelectedPlatform(platform);
-    setModalMode("update");
-    setIsModalOpen(true);
+  const deletePlatform = async () => {
+    if (platformToDelete) {
+      try {
+        await platformService.delete(platformToDelete);
+        fetchPlatforms();
+        setDeleteConfirmOpen(false);
+        setPlatformToDelete(null);
+        AlertManager.success("Platform deleted successfully");
+      } catch (err) {
+        AlertManager.error((err as ApiError).message);
+      }
+    }
   };
 
-  const handleAddNew = () => {
+  const openCreateModal = () => {
     setSelectedPlatform(undefined);
     setModalMode("create");
     setIsModalOpen(true);
   };
 
+  const openEditModal = (platform: Platform) => {
+    setSelectedPlatform(platform);
+    setModalMode("update");
+    setIsModalOpen(true);
+  };
+
+  const openDeleteModal = (platformId: string) => {
+    setPlatformToDelete(platformId);
+    setDeleteConfirmOpen(true);
+  };
+
   const handleModalSubmit = async (platform: Omit<Platform, "id">) => {
     if (modalMode === "create") {
-      await handleCreate(platform);
+      await createPlatform(platform);
     } else {
-      await handleUpdate(platform);
+      await updatePlatform(platform);
     }
   };
 
@@ -83,25 +101,6 @@ export default function PlatformList() {
       setError(err as ApiError);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleDeleteClick = (platformId: string) => {
-    setPlatformToDelete(platformId);
-    setDeleteConfirmOpen(true);
-  };
-
-  const confirmDelete = async () => {
-    if (platformToDelete) {
-      try {
-        await platformService.delete(platformToDelete);
-        fetchPlatforms();
-        setDeleteConfirmOpen(false);
-        setPlatformToDelete(null);
-        AlertManager.success("Platform deleted successfully");
-      } catch (err) {
-        AlertManager.error((err as ApiError).message);
-      }
     }
   };
 
@@ -146,7 +145,7 @@ export default function PlatformList() {
           variant="contained"
           color="primary"
           startIcon={<AddIcon />}
-          onClick={handleAddNew}
+          onClick={openCreateModal}
           size="large"
         >
           Add Platform
@@ -176,8 +175,8 @@ export default function PlatformList() {
             <Grid item xs={12} sm={6} md={4} lg={3} key={platform.id}>
               <PlatformCard
                 platform={platform}
-                onUpdate={handleEdit}
-                onDelete={handleDeleteClick}
+                onUpdate={openEditModal}
+                onDelete={openDeleteModal}
               />
             </Grid>
           ))}
@@ -197,7 +196,7 @@ export default function PlatformList() {
         title="Delete Platform"
         contentText="Are you sure you want to delete this platform? This will also remove all associated commands."
         onClose={() => setDeleteConfirmOpen(false)}
-        onConfirm={confirmDelete}
+        onConfirm={deletePlatform}
       />
     </Container>
   );

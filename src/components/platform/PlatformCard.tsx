@@ -7,8 +7,6 @@ import {
   CardActionArea,
   Box,
   Chip,
-  Button,
-  CardActions,
   IconButton,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
