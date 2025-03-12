@@ -12,6 +12,9 @@ const commandService = {
     create: (platformId: string, command: Omit<Command, 'id'>): Promise<Command> => 
         handleApiRequest(() => api.post<Command>(`/c/Command/${platformId}`, command)),
 
+    update: (platformId: string, command: Command): Promise<Command> =>
+        handleApiRequest(() => api.put<Command>(`/c/Command/${platformId}/${command.id}`, command)),
+
     delete: (platformId: string, commandId: string): Promise<void> => 
         handleApiRequest(() => api.delete(`/c/Command/${platformId}/${commandId}`))
 };

@@ -13,6 +13,8 @@ import { Command } from "../../types/Command";
 import { ApiError } from "../../types/error";
 import CommandCard from "./CommandCard";
 import commandService from "../../services/commandService";
+import CommandModal from "./CommandModal";
+import { AlertManager } from "../../contexts/AlertContext";
 
 interface CommandListProps {
   platformId: string;
@@ -22,8 +24,49 @@ export default function CommandList({ platformId }: CommandListProps) {
   const [commands, setCommands] = useState<Command[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<ApiError | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<"create" | "update">("create");
+  const [selectedCommand, setSelectedCommand] = useState<Command | undefined>(undefined);
 
-  useEffect(() => {
+  const createCommand = async (command: Omit<Command, "id">) => {
+    try {
+      await commandService.create(platformId, command);
+      fetchCommands();
+      setIsModalOpen(false);
+      AlertManager.success("Command created successfully");
+    } catch (err) {
+      AlertManager.error((err as ApiError).message);
+    }
+  };
+
+  const updateCommand = async (command: Command) => {
+    if (!selectedCommand?.id) return;
+
+    try {
+      await commandService.update(platformId, command);
+      fetchCommands();
+      setIsModalOpen(false);
+      AlertManager.success("Command updated successfully");
+    } catch (err) {
+      AlertManager.error((err as ApiError).message);
+    }
+  };
+
+
+  const openCreateModal = () => {
+    setSelectedCommand(undefined);
+    setModalMode("create");
+    setIsModalOpen(true);
+  };
+
+  const handleModalSubmit = async (platform: Omit<Command, "id">) => {
+      if (modalMode === "create") {
+        await createCommand(platform);
+      } else {
+        await updateCommand(platform);
+      }
+    };
+
     const fetchCommands = async () => {
       try {
         setLoading(true);
@@ -45,6 +88,7 @@ export default function CommandList({ platformId }: CommandListProps) {
       }
     };
 
+  useEffect(() => {
     fetchCommands();
   }, [platformId]);
 
@@ -81,7 +125,7 @@ export default function CommandList({ platformId }: CommandListProps) {
           variant="contained"
           color="primary"
           startIcon={<AddIcon />}
-          //onClick={openCreateModal}
+          onClick={openCreateModal}
           size="large"
         >
           Add Command
@@ -92,6 +136,14 @@ export default function CommandList({ platformId }: CommandListProps) {
           <CommandCard command={command} />
         </Grid>
       ))}
+
+      <CommandModal
+      isOpen = {isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      onSubmit={handleModalSubmit}
+      command={selectedCommand}
+      platformId={platformId}
+      mode={modalMode}/>
     </Container>
   );
 }

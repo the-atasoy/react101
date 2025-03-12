@@ -99,10 +99,8 @@ export default function PlatformList() {
       setPlatforms(data);
     } catch (err) {
       if (typeof err === "object" && err !== null && "statusCode" in err) {
-        if (err.statusCode === 404)
-          setPlatforms([]);
-        else
-          setError(err as ApiError);
+        if (err.statusCode === 404) setPlatforms([]);
+        else setError(err as ApiError);
       } else {
         setError({
           statusCode: 500,
@@ -203,7 +201,7 @@ export default function PlatformList() {
       />
 
       <DeleteConfirmationDialog
-        open={deleteConfirmOpen}
+        isOpen={deleteConfirmOpen}
         title="Delete Platform"
         contentText="Are you sure you want to delete this platform? This will also remove all associated commands."
         onClose={() => setDeleteConfirmOpen(false)}
