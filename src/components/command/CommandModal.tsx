@@ -18,7 +18,7 @@ interface CommandModalProps {
   mode: "create" | "update";
 }
 
-export default function PlatformModal({
+export default function CommandModal({
   isOpen,
   onClose,
   onSubmit,
@@ -51,7 +51,7 @@ export default function PlatformModal({
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await onSubmit(formData);
-    setFormData({ platformId: "", howTo: "", commandLine: "" });
+    setFormData({ platformId: platformId, howTo: "", commandLine: "" });
   };
 
   return (
