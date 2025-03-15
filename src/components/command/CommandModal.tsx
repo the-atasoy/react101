@@ -58,7 +58,7 @@ export default function CommandModal({
     <Dialog open={isOpen} onClose={onClose}>
       <form onSubmit={handleSubmit}>
         <DialogTitle>
-          {mode === "create" ? "Add New Platform" : "Update Platform"}
+          {mode === "create" ? "Add New Command" : "Update Command"}
         </DialogTitle>
         <DialogContent>
           <TextField
