@@ -4,7 +4,6 @@ import { AlertProvider, useAlert } from "./contexts/AlertContext";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Platforms from "./pages/Platforms";
-import About from "./pages/About";
 import Commands from "./pages/Commands";
 import "./App.css";
 import { ThemeProvider, CssBaseline } from "@mui/material";
@@ -44,7 +43,6 @@ function AppContent() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/platforms" element={<Platforms />} />
-            <Route path="/about" element={<About />} />
             <Route
               path="/commands/:platformId/:platformName"
               element={<Commands />}
