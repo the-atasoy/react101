@@ -26,8 +26,8 @@ export default function PlatformList() {
   const [selectedPlatform, setSelectedPlatform] = useState<
     Platform | undefined
   >(undefined);
-  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [platformToDelete, setPlatformToDelete] = useState<string | null>(null);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
 
   const createPlatform = async (platform: Omit<Platform, "id">) => {
     try {
@@ -73,23 +73,20 @@ export default function PlatformList() {
     setIsModalOpen(true);
   };
 
-  const openEditModal = (platform: Platform) => {
+  const openUpdateModal = (platform: Platform) => {
     setSelectedPlatform(platform);
     setModalMode("update");
     setIsModalOpen(true);
   };
 
-  const openDeleteModal = (platformId: string) => {
+  const openDeleteConfirm = (platformId: string) => {
     setPlatformToDelete(platformId);
     setDeleteConfirmOpen(true);
   };
 
   const handleModalSubmit = async (platform: Omit<Platform, "id">) => {
-    if (modalMode === "create") {
-      await createPlatform(platform);
-    } else {
-      await updatePlatform(platform);
-    }
+    if (modalMode === "create") await createPlatform(platform);
+    else await updatePlatform(platform);
   };
 
   const fetchPlatforms = async () => {
@@ -98,7 +95,16 @@ export default function PlatformList() {
       const data = await platformService.getAll();
       setPlatforms(data);
     } catch (err) {
-      setError(err as ApiError);
+      if (typeof err === "object" && err !== null && "statusCode" in err) {
+        if (err.statusCode === 404) setPlatforms([]);
+        else setError(err as ApiError);
+      } else {
+        setError({
+          statusCode: 500,
+          message: "An unexpected error occurred",
+          error: String(err),
+        } as ApiError);
+      }
     } finally {
       setLoading(false);
     }
@@ -153,30 +159,17 @@ export default function PlatformList() {
       </Box>
 
       {platforms.length === 0 ? (
-        <Box textAlign="center" py={8}>
-          <Typography variant="h6" color="textSecondary" gutterBottom>
-            No platforms found
-          </Typography>
-          <Typography variant="body1" color="textSecondary" paragraph>
-            Get started by adding your first platform
-          </Typography>
-          <Button
-            variant="outlined"
-            color="primary"
-            startIcon={<AddIcon />}
-            onClick={() => setIsModalOpen(true)}
-          >
-            Add Platform
-          </Button>
-        </Box>
+        <Alert severity="info" sx={{ my: 2 }}>
+          No platforms found. Click "Add Platform" to create one.
+        </Alert>
       ) : (
         <Grid container spacing={3}>
           {platforms.map((platform) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={platform.id}>
               <PlatformCard
                 platform={platform}
-                onUpdate={openEditModal}
-                onDelete={openDeleteModal}
+                onUpdate={openUpdateModal}
+                onDelete={openDeleteConfirm}
               />
             </Grid>
           ))}
@@ -192,7 +185,7 @@ export default function PlatformList() {
       />
 
       <DeleteConfirmationDialog
-        open={deleteConfirmOpen}
+        isOpen={deleteConfirmOpen}
         title="Delete Platform"
         contentText="Are you sure you want to delete this platform? This will also remove all associated commands."
         onClose={() => setDeleteConfirmOpen(false)}

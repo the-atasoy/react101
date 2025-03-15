@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 interface DeleteConfirmationDialogProps {
-  open: boolean;
+  isOpen: boolean;
   title: string;
   contentText: string;
   onClose: () => void;
@@ -16,7 +16,7 @@ interface DeleteConfirmationDialogProps {
 }
 
 export default function DeleteConfirmationDialog({
-  open,
+  isOpen: open,
   title,
   contentText,
   onClose,
