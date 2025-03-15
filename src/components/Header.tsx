@@ -49,7 +49,7 @@ export default function Header() {
               color: 'text.primary',
             }}
           >
-            Platform Commands
+            Memorium
           </Typography>
 
           {/* Mobile menu */}
@@ -104,7 +104,7 @@ export default function Header() {
               color: 'inherit',
             }}
           >
-            Platform Commands
+            Memorium
           </Typography>
 
           {/* Desktop menu */}
