@@ -85,10 +85,8 @@ export default function PlatformList() {
   };
 
   const handleModalSubmit = async (platform: Omit<Platform, "id">) => {
-    if (modalMode === "create")
-      await createPlatform(platform);
-    else
-      await updatePlatform(platform);
+    if (modalMode === "create") await createPlatform(platform);
+    else await updatePlatform(platform);
   };
 
   const fetchPlatforms = async () => {
@@ -161,22 +159,9 @@ export default function PlatformList() {
       </Box>
 
       {platforms.length === 0 ? (
-        <Box textAlign="center" py={8}>
-          <Typography variant="h6" color="textSecondary" gutterBottom>
-            No platforms found
-          </Typography>
-          <Typography variant="body1" color="textSecondary" paragraph>
-            Get started by adding your first platform
-          </Typography>
-          <Button
-            variant="outlined"
-            color="primary"
-            startIcon={<AddIcon />}
-            onClick={() => setIsModalOpen(true)}
-          >
-            Add Platform
-          </Button>
-        </Box>
+        <Alert severity="info" sx={{ my: 2 }}>
+          No platforms found. Click "Add Platform" to create one.
+        </Alert>
       ) : (
         <Grid container spacing={3}>
           {platforms.map((platform) => (

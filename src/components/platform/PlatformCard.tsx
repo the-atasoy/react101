@@ -67,7 +67,7 @@ export default function PlatformCard({
       }}
     >
       <CardActionArea
-        onClick={() => navigate(`/commands/${platform.id}/${platform.name}`)}
+        onClick={() => navigate(`/commands/${platform.id}/${encodeURIComponent(platform.name)}`)}
         sx={{
           flexGrow: 1,
           display: "flex",
