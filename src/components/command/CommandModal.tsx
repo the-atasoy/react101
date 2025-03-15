@@ -77,7 +77,9 @@ export default function PlatformModal({
             fullWidth
             margin="normal"
             value={formData.commandLine}
-            onChange={(e) => setFormData({ ...formData, commandLine: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, commandLine: e.target.value })
+            }
           />
         </DialogContent>
         <DialogActions>

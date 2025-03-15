@@ -26,8 +26,8 @@ export default function PlatformList() {
   const [selectedPlatform, setSelectedPlatform] = useState<
     Platform | undefined
   >(undefined);
-  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [platformToDelete, setPlatformToDelete] = useState<string | null>(null);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
 
   const createPlatform = async (platform: Omit<Platform, "id">) => {
     try {
@@ -73,23 +73,22 @@ export default function PlatformList() {
     setIsModalOpen(true);
   };
 
-  const openEditModal = (platform: Platform) => {
+  const openUpdateModal = (platform: Platform) => {
     setSelectedPlatform(platform);
     setModalMode("update");
     setIsModalOpen(true);
   };
 
-  const openDeleteModal = (platformId: string) => {
+  const openDeleteConfirm = (platformId: string) => {
     setPlatformToDelete(platformId);
     setDeleteConfirmOpen(true);
   };
 
   const handleModalSubmit = async (platform: Omit<Platform, "id">) => {
-    if (modalMode === "create") {
+    if (modalMode === "create")
       await createPlatform(platform);
-    } else {
+    else
       await updatePlatform(platform);
-    }
   };
 
   const fetchPlatforms = async () => {
@@ -184,8 +183,8 @@ export default function PlatformList() {
             <Grid item xs={12} sm={6} md={4} lg={3} key={platform.id}>
               <PlatformCard
                 platform={platform}
-                onUpdate={openEditModal}
-                onDelete={openDeleteModal}
+                onUpdate={openUpdateModal}
+                onDelete={openDeleteConfirm}
               />
             </Grid>
           ))}

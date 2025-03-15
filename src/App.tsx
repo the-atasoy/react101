@@ -46,7 +46,7 @@ function AppContent() {
             <Route path="/platforms" element={<Platforms />} />
             <Route path="/about" element={<About />} />
             <Route
-              path="/commands/:platformId"
+              path="/commands/:platformId/:platformName"
               element={<Commands />}
             />
           </Routes>
