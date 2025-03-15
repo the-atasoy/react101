@@ -46,7 +46,7 @@ export default function CommandModal({
         commandLine: "",
       });
     }
-  }, [command, isOpen, mode]);
+  }, [command, isOpen, mode, platformId]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

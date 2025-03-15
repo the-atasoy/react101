@@ -19,7 +19,6 @@ import { keyframes } from "@mui/system";
 const pages = ["Home", "Platforms"];
 const routes = ["/", "/platforms"];
 
-// Define the keyframe animation for blinking
 const blink = keyframes`
   0% {
     opacity: 1;
@@ -185,23 +184,22 @@ export default function Header() {
                   "&:hover": {
                     borderBottom: `3px solid ${theme.palette.primary.main}`,
                   },
-                  position: "relative", // Added for positioning the arrow
+                  position: "relative",
                 }}
               >
                 {page}
 
-                {/* Large blinking arrow only for Platforms menu item and only on the home page */}
                 {page === "Platforms" && isHomePage && (
                   <KeyboardArrowUpIcon
                     sx={{
                       position: "absolute",
-                      bottom: "-60px", // Increased to make it overflow more visibly
+                      bottom: "-60px",
                       left: "8%",
                       transform: "translateX(-50%)",
-                      fontSize: "5.5rem", // Much larger arrow
+                      fontSize: "5.5rem",
                       color: theme.palette.primary.main,
                       animation: `${blink} 1.5s infinite ease-in-out`,
-                      zIndex: 1100, // Ensure it's above other elements
+                      zIndex: 1100,
                     }}
                   />
                 )}

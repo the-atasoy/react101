@@ -1,6 +1,5 @@
 import { Box, Typography, Divider, Grid } from "@mui/material";
 import {
-  Terminal,
   Devices,
   ContentCopy,
   Search,
