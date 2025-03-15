@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   AppBar,
   Box,
@@ -8,15 +8,18 @@ import {
   Menu,
   Container,
   Button,
-  MenuItem
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import { useNavigate } from 'react-router-dom';
+  MenuItem,
+  useTheme,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
 
-const pages = ['Home', 'Platforms', 'About'];
-const routes = ['/', '/platforms', '/about'];
+const pages = ["Home", "Platforms", "About"];
+const routes = ["/", "/platforms", "/about"];
 
 export default function Header() {
+  const theme = useTheme();
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
@@ -34,26 +37,30 @@ export default function Header() {
   };
 
   return (
-    <AppBar position="static" sx={{ bgcolor: 'background.paper' }}>
+    <AppBar position="static" sx={{ bgcolor: "background.paper" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* Title - Desktop */}
+          <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
+            <img src={logo} alt="Memorium Logo" height="40" />
+          </Box>
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontWeight: 700,
-              color: 'text.primary',
+              display: { xs: "none", md: "flex" },
+              fontFamily: "'Tektur', sans-serif",
+              fontWeight: 750,
+              fontSize: "1.5rem",
+              color: "text.primary",
+              letterSpacing: "0.05em",
             }}
           >
-            Memorium
+            MEMORIUM
           </Typography>
 
-          {/* Mobile menu */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="navigation menu"
@@ -68,62 +75,100 @@ export default function Header() {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page, index) => (
-                <MenuItem 
-                  key={page} 
+                <MenuItem
+                  key={page}
                   onClick={() => handleNavigate(routes[index])}
+                  sx={{
+                    height: "40px",
+                    width: "100%",
+                    justifyContent: "center",
+                    textTransform: "uppercase",
+                    fontSize: "0.9rem",
+                    letterSpacing: "0.05em",
+                    my: 0.5,
+                  }}
                 >
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography
+                    textAlign="center"
+                    sx={{
+                      fontWeight: 700, // Changed from 500 to 700 for thicker text
+                    }}
+                  >
+                    {page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
 
+          <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
+            <img src={logo} alt="Memorium Logo" height="32" />
+          </Box>
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{
               flexGrow: 1,
-              display: { xs: 'flex', md: 'none' },
-              fontWeight: 700,
-              color: 'inherit',
+              display: { xs: "flex", md: "none" },
+              fontFamily: "'Tektur', sans-serif",
+              fontWeight: 750,
+              fontSize: "1.3rem",
+              color: "inherit",
+              letterSpacing: "0.05em",
             }}
           >
-            Memorium
+            MEMORIUM
           </Typography>
 
-          {/* Desktop menu */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: "flex-end",
+            }}
+          >
             {pages.map((page, index) => (
-              <Button
+              <Box
                 key={page}
                 onClick={() => handleNavigate(routes[index])}
-                sx={{ 
-                  my: 2, 
-                  color: 'text.primary',
-                  display: 'block',
-                  '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.08)'
-                  }
+                sx={{
+                  width: "100px",
+                  height: "40px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  mx: 1,
+                  textTransform: "uppercase",
+                  fontWeight: 700,
+                  fontSize: "0.9rem",
+                  letterSpacing: "0.05em",
+                  borderBottom: "3px solid transparent",
+                  transition: "all 0.2s ease",
+                  color: "text.primary",
+                  "&:hover": {
+                    borderBottom: `3px solid ${theme.palette.primary.main}`,
+                  },
                 }}
               >
                 {page}
-              </Button>
+              </Box>
             ))}
           </Box>
         </Toolbar>
