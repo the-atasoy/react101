@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import {
-  Grid,
   Alert,
   CircularProgress,
   Button,
@@ -8,6 +7,7 @@ import {
   Box,
   Container,
 } from "@mui/material";
+import Grid from '@mui/material/Grid2';
 import AddIcon from "@mui/icons-material/Add";
 import { Platform } from "../../types/Platform";
 import { ApiError } from "../../types/error";
@@ -165,7 +165,7 @@ export default function PlatformList() {
       ) : (
         <Grid container spacing={3}>
           {platforms.map((platform) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={platform.id}>
+            <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={platform.id}>
               <PlatformCard
                 platform={platform}
                 onUpdate={openUpdateModal}

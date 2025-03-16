@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -59,7 +58,7 @@ export default function CommandCard({
           boxShadow: 6,
         },
         mb: 2,
-        overflow: "visible", // Allows shadow to be visible when transformed
+        overflow: "visible",
       }}
     >
       <CardHeader
@@ -68,8 +67,8 @@ export default function CommandCard({
             sx={{
               bgcolor: "primary.main",
               color: "primary.contrastText",
-              width: 36, // Reduced size
-              height: 36, // Reduced size
+              width: 36,
+              height: 36,
               borderRadius: "50%",
               display: "flex",
               alignItems: "center",
@@ -84,7 +83,7 @@ export default function CommandCard({
             variant="subtitle1" 
             noWrap 
             title={command.howTo}
-            sx={{ maxWidth: "200px" }} // Limit title width
+            sx={{ maxWidth: "200px" }}
           >
             {command.howTo}
           </Typography>

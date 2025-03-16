@@ -1,4 +1,5 @@
-import { Box, Typography, Divider, Grid } from "@mui/material";
+import { Box, Typography, Divider } from "@mui/material";
+import Grid from '@mui/material/Grid2';
 import {
   Devices,
   ContentCopy,
@@ -58,7 +59,7 @@ export default function Home() {
         </Typography>
 
         <Grid container spacing={4} sx={{ mt: 2 }}>
-          <Grid item xs={12} md={4}>
+          <Grid size={{xs:12, md:4}}>
             <Box sx={styles.featureBox}>
               <Box sx={styles.iconWrapper}>
                 <ContentCopy color="primary" fontSize="large" />
@@ -75,7 +76,7 @@ export default function Home() {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid size={{xs:12, md:4}}>
             <Box sx={styles.featureBox}>
               <Box sx={styles.iconWrapper}>
                 <Devices color="primary" fontSize="large" />
@@ -92,7 +93,7 @@ export default function Home() {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid size={{xs:12, md:4}}>
             <Box sx={styles.featureBox}>
               <Box sx={styles.iconWrapper}>
                 <Speed color="primary" fontSize="large" />
