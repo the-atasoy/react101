@@ -6,9 +6,6 @@ const commandService = {
     getAll: (platformId: string): Promise<Command[]> => 
         handleApiRequest(() => api.get<Command[]>(`/c/Command/${platformId}`)),
 
-    getById: (platformId: string, commandId: string): Promise<Command> => 
-        handleApiRequest(() => api.get<Command>(`/c/Command/${platformId}/${commandId}`)),
-
     create: (platformId: string, command: Omit<Command, 'id'>): Promise<Command> => 
         handleApiRequest(() => api.post<Command>(`/c/Command/${platformId}`, command)),
 

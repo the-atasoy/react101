@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import {
-  Grid,
   Alert,
   CircularProgress,
   Typography,
@@ -8,6 +7,7 @@ import {
   Button,
   Container,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import AddIcon from "@mui/icons-material/Add";
 import { Command } from "../../types/Command";
 import { ApiError } from "../../types/error";
@@ -170,7 +170,7 @@ export default function CommandList({
       ) : (
         <Grid container spacing={3}>
           {commands.map((command) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={command.id}>
+            <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={command.id}>
               <CommandCard
                 command={command}
                 onEdit={openUpdateModal}
