@@ -35,7 +35,7 @@ Here are some screenshots showcasing the application's interface and features:
 #### Command List
 ![Command List](SampleImagesForReadme/5.png)
 
-#### Add New Command
+#### Add Command Modal
 ![Add New Command](SampleImagesForReadme/6.png)
 
 ## Technical Stack
