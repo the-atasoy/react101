@@ -1,46 +1,135 @@
-# Getting Started with Create React App
+# Memorium - Command Line Memory Assistant
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Memorium is a web application that helps users organize and remember command-line instructions for different platforms. Never forget that complex Docker command or obscure Git operation again!
 
-## Available Scripts
+## Purpose
 
-In the project directory, you can run:
+This project was developed for learning React fundamentals. It serves as the UI component for a microservice architecture project that was built for learning microservice fundamentals.
 
-### `npm start`
+Backend project: [MicroService101](https://github.com/the-atasoy/MicroService101)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Project Overview
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Memorium allows users to:
 
-### `npm test`
+- Create and manage technology platforms (Linux, Windows, Docker, etc.)
+- Store and organize commands by platform
+- Easily copy commands with a single click
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technical Stack
 
-### `npm run build`
+- React 19.0.0 with TypeScript
+- Material UI for component styling
+- React Router for navigation
+- Axios for API communication
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+src/
+├── components/               # Reusable UI components
+│   ├── command/              # Command-related components
+│   │   ├── CommandCard.tsx   # Card for displaying individual commands
+│   │   ├── CommandList.tsx   # List for displaying commands
+│   │   └── CommandModal.tsx  # Modal for creating/editing commands
+│   ├── platform/             # Platform-related components
+│   │   ├── PlatformCard.tsx  # Card for displaying individual platforms
+│   │   ├── PlatformList.tsx  # List for displaying platforms
+│   │   └── PlatformModal.tsx # Modal for creating/editing platforms
+│   └── Header.tsx            # Application header component
+├── contexts/
+│   └── AlertContext.tsx      # Global alert management context
+├── pages/                    # Page components
+│   ├── Commands.tsx          # Command management page
+│   ├── Home.tsx              # Landing page
+│   └── Platforms.tsx         # Platform management page
+├── services/                 # API service layer
+│   ├── api.config.tsx        # API configuration
+│   ├── apiWrapper.ts         # API error handling wrapper
+│   ├── commandService.ts     # Command API integration
+│   └── platformService.ts    # Platform API integration
+├── types/                    # TypeScript type definitions
+│   ├── Command.ts            # Command interface
+│   ├── Platform.ts           # Platform interface
+│   └── error.ts              # Error handling types
+├── App.tsx                   # Root application component
+├── index.tsx                 # Application entry point
+└── theme.ts                  # Material-UI theme configuration
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Getting Started
 
-### `npm run eject`
+### Prerequisites
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Node.js (14.x or later)
+- npm or yarn
+- Backend API running ([MicroService101](https://github.com/the-atasoy/MicroService101))
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Running Locally
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone the repository:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```sh
+   git clone https://github.com/the-atasoy/react101.git
+   cd react101
+   ```
 
-## Learn More
+2. Install dependencies:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```sh
+   npm install
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Adjust `api.config.tsx` file in the root directory:
+
+   ```sh
+   const BASE_URL = 'http://acme.com';
+   ```
+
+   Note: Adjust the API URL to match your backend configuration
+
+4. Start the development server:
+
+   ```sh
+   npm start
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Additional Commands
+
+- `npm run build` - Creates a production build in the `build` folder
+- `npm test` - Runs the test suite
+- `npm run eject` - Ejects from Create React App configuration (one-way operation)
+
+## Features
+
+### Platform Management
+
+- Create, view, update, and delete platforms
+- View platform details including name, publisher, and cost
+- Visual cost indicators
+
+### Command Management
+
+- Organize commands by platform
+- Store command text and usage instructions
+- One-click copy functionality
+
+### User Interface
+
+- Responsive design for all screen sizes
+- Dark theme support
+- Intuitive navigation
+
+## API Integration
+
+The application connects to [MicroService101](https://github.com/the-atasoy/MicroService101) backend API locally for data storage and retrieval. API services handle:
+
+- Platform CRUD operations
+- Command CRUD operations
+- Error handling and response transformation
+
+## Future Improvements
+
+- User authentication and personal command libraries
