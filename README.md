@@ -16,6 +16,28 @@ Memorium allows users to:
 - Store and organize commands by platform
 - Easily copy commands with a single click
 
+## Sample Images
+
+Here are some screenshots showcasing the application's interface and features:
+
+#### Home Page
+![Home Page](SampleImagesForReadme/1.png)
+
+#### Platform List
+![Platform List](SampleImagesForReadme/2.png)
+
+#### Update Platform Modal
+![Update Platform Modal](SampleImagesForReadme/3.png)
+
+#### Delete Platform Modal
+![Delete Platform](SampleImagesForReadme/4.png)
+
+#### Command List
+![Command List](SampleImagesForReadme/5.png)
+
+#### Add New Command
+![Add New Command](SampleImagesForReadme/6.png)
+
 ## Technical Stack
 
 - React 19.0.0 with TypeScript
