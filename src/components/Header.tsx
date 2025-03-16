@@ -59,13 +59,21 @@ export default function Header() {
     <AppBar position="static" sx={{ bgcolor: "background.paper" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              mr: 1,
+              cursor: "pointer",
+            }}
+            onClick={() => navigate("/")}
+          >
             <img src={logo} alt="Memorium Logo" height="40" />
           </Box>
           <Typography
             variant="h6"
             noWrap
-            component="div"
+            component={Box}
+            onClick={() => navigate("/")}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -74,6 +82,7 @@ export default function Header() {
               fontSize: "1.5rem",
               color: "text.primary",
               letterSpacing: "0.05em",
+              cursor: "pointer",
             }}
           >
             MEMORIUM
@@ -135,13 +144,21 @@ export default function Header() {
             </Menu>
           </Box>
 
-          <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
+          <Box
+            sx={{
+              display: { xs: "flex", md: "none" },
+              mr: 1,
+              cursor: "pointer",
+            }}
+            onClick={() => navigate("/")}
+          >
             <img src={logo} alt="Memorium Logo" height="32" />
           </Box>
           <Typography
             variant="h6"
             noWrap
-            component="div"
+            component={Box}
+            onClick={() => navigate("/")}
             sx={{
               flexGrow: 1,
               display: { xs: "flex", md: "none" },
@@ -150,6 +167,7 @@ export default function Header() {
               fontSize: "1.3rem",
               color: "inherit",
               letterSpacing: "0.05em",
+              cursor: "pointer",
             }}
           >
             MEMORIUM
@@ -182,7 +200,7 @@ export default function Header() {
                   transition: "all 0.2s ease",
                   color: "text.primary",
                   "&:hover": {
-                    borderBottom: `3px solid ${theme.palette.primary.main}`,
+                    borderBottom: `3px solid ${theme.palette.primary.contrastText}`,
                   },
                   position: "relative",
                 }}
@@ -197,7 +215,7 @@ export default function Header() {
                       left: "8%",
                       transform: "translateX(-50%)",
                       fontSize: "5.5rem",
-                      color: theme.palette.primary.main,
+                      color: theme.palette.primary.contrastText,
                       animation: `${blink} 1.5s infinite ease-in-out`,
                       zIndex: 1100,
                     }}

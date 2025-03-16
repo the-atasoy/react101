@@ -28,15 +28,11 @@ export default function DeleteConfirmationDialog({
       <DialogContent>
         <DialogContentText>{contentText}</DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button
+      <DialogActions sx={{ padding: "0 24px 20px 24px" }}>
+        <Button variant="contained" color="secondary" onClick={onClose}>Cancel</Button>
+        <Button variant="contained" color="error"
           onClick={onConfirm}
           disableRipple
-          sx={{
-            backgroundColor: "#AE0611",
-            color: "white",
-          }}
         >
           Delete
         </Button>

@@ -58,7 +58,7 @@ export default function PlatformModal({
         <DialogTitle>
           {mode === "create" ? "Add New Platform" : "Update Platform"}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ paddingBottom: 2 }}>
           <TextField
             name="name"
             label="Name"
@@ -86,8 +86,10 @@ export default function PlatformModal({
             onChange={(e) => setFormData({ ...formData, cost: e.target.value })}
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose}>Cancel</Button>
+        <DialogActions sx={{ padding: "0 24px 20px 24px" }}>
+          <Button variant="contained" color="secondary" onClick={onClose}>
+            Cancel
+          </Button>
           <Button type="submit" variant="contained" color="primary">
             {mode === "create" ? "Add" : "Edit"}
           </Button>

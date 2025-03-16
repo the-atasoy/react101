@@ -2,19 +2,16 @@ import { Box, Typography, Divider, Grid } from "@mui/material";
 import {
   Devices,
   ContentCopy,
-  Search,
   Speed,
 } from "@mui/icons-material";
-import logo from "../assets/logo.png"; // Import the existing logo
+import logo from "../assets/logo.png";
 
 export default function Home() {
 
   return (
     <Box sx={styles.container}>
-      {/* Hero Section */}
       <Box sx={styles.hero}>
         <Box sx={styles.logoContainer}>
-          {/* Use the logo image instead of Terminal icon */}
           <img src={logo} alt="Memorium Logo" style={{ height: "90px" }} />
         </Box>
         <Typography variant="h2" component="h1" gutterBottom>
@@ -27,7 +24,6 @@ export default function Home() {
           Your CLI Manager
         </Typography>
 
-        {/* Removed: Blinking arrow and Go to Platforms button */}
       </Box>
 
       <Divider sx={styles.divider} />
@@ -62,7 +58,7 @@ export default function Home() {
         </Typography>
 
         <Grid container spacing={4} sx={{ mt: 2 }}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <Box sx={styles.featureBox}>
               <Box sx={styles.iconWrapper}>
                 <ContentCopy color="primary" fontSize="large" />
@@ -79,24 +75,7 @@ export default function Home() {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={6}>
-            <Box sx={styles.featureBox}>
-              <Box sx={styles.iconWrapper}>
-                <Search color="primary" fontSize="large" />
-              </Box>
-              <Box>
-                <Typography variant="h6" gutterBottom>
-                  Powerful Search
-                </Typography>
-                <Typography variant="body2">
-                  Quickly find commands with our powerful search feature. Search
-                  by description or command text.
-                </Typography>
-              </Box>
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <Box sx={styles.featureBox}>
               <Box sx={styles.iconWrapper}>
                 <Devices color="primary" fontSize="large" />
@@ -113,7 +92,7 @@ export default function Home() {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <Box sx={styles.featureBox}>
               <Box sx={styles.iconWrapper}>
                 <Speed color="primary" fontSize="large" />
@@ -151,7 +130,6 @@ const styles = {
     justifyContent: "center",
     mb: 2,
   },
-  // Removed logoIcon style since we're using an img tag now
   memoriumText: {
     fontFamily: "'Tektur', sans-serif",
     fontWeight: "700",

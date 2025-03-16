@@ -82,8 +82,8 @@ export default function CommandModal({
             }
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose}>Cancel</Button>
+        <DialogActions sx={{ padding: "0 24px 20px 24px" }}>
+          <Button variant="contained" color="secondary" onClick={onClose}>Cancel</Button>
           <Button type="submit" variant="contained" color="primary">
             {mode === "create" ? "Add" : "Edit"}
           </Button>
